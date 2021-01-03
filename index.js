@@ -52,13 +52,20 @@ app.get("/updateCountries",(req,res)=>{
 })
 
 //Deletes data from updateCountries
-app.get("/listCountries/:country",(req,res) =>{
-    sqlDAO.deleteCountry(req.params.country)
+app.get("/countries/:co_code",(req,res) =>{
+    sqlDAO.deleteCountry(req.params.co_code)
     .then((result)=>{
-        res.send(result)
+        if(result.affectedRows == 1)
+        {
+            res.send(req.params.co_code + "was deleted")
+        }
+        else if (result.affectedRows == 0)
+        {
+            res.send()
+        }
     })
     .catch((error)=>{
-        res.send(error)
+        res.send(req.params.co_code + "Has cities,it cannot be deleted")
     })
 })
 
@@ -73,8 +80,12 @@ app.get("/listCities",(req,res)=>{
     })
 })
 
-app.get("/allDetails/:co_code",(req,res)=>{
-    re
+app.get("/allDetails/:cty_code",(req,res)=>{
+    sqlDAO.getDetails(req.params.cty_code)
+        .then((result) => {
+            //display individual city
+            res.render('allDetails', {listCities:result})
+        })
 })
 
 app.get("/listHeadsOfState",(req,res)=>{
@@ -99,8 +110,8 @@ app.post((req,res)=>{
 app.post("/addCountries",(req,res) =>{
     sqlDAO.addCountry(req)
     .then((data)=>{
-        res.render("addCountries",{addCountries:data})
-        console.log(req.body.co_name)
+        res.redirect("/listCountries")
+        console.log(data)
     })
     .catch((error)=>{
         res.send(error)
@@ -130,4 +141,3 @@ app.post("/updateCountries",(req,res) =>{
 app.listen(3007,()=>{
     console.log("Listening on port 3007")
 })
-    

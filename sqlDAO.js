@@ -118,12 +118,17 @@ var getCities = function () {
 }
 
 
-//gets details of in sql database
+//gets details of cities in sql database
 var getDetails = function () {
   //Return new promise
   return new Promise((resolve, reject) => {
     //function promise/queary database
-    pool.query("select * from city;")
+        //query then sends a result
+        var myQuery ={
+          sql: 'select * from city where cty_code = ?',
+          values: [cty_code]
+      }
+    pool.query(myQuery)
       .then((result) => {
         resolve(result)
       })

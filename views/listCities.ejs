@@ -18,10 +18,9 @@
             <td><%= city.isCoastal %></td>
             <td><%= city.areaKM %></td>
             <td>
-            <form action="./updateCountries">
-                <input type='submit' value='All details'/></td>
-            </form>
+                <a href="/listCities/<%= city.cty_code %>"> <button type="button">Details</button></a>
             <td>
         </tr>
     <% }) %>
 </table>
+<a href="./">Home</a> 
