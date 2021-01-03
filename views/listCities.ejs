@@ -1,0 +1,27 @@
+<h1>List of Cities</h1>
+<table>
+    <tr>
+        <th>Cityy Code</th>
+        <th>Country Code</th>
+        <th>City Name</th>
+        <th>Population</th>
+        <th>By the Sea</th>
+        <th>Area</th>
+        <th>All details</th>
+    </tr>
+    <% listCities.forEach((city)=> { %>
+        <tr>
+            <td><%= city.cty_code %></td>
+            <td><%= city.co_code %></td>
+            <td><%= city.cty_name %></td>
+            <td><%= city.population %></td>
+            <td><%= city.isCoastal %></td>
+            <td><%= city.areaKM %></td>
+            <td>
+            <form action="./updateCountries">
+                <input type='submit' value='All details'/></td>
+            </form>
+            <td>
+        </tr>
+    <% }) %>
+</table>
