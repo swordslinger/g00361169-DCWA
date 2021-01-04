@@ -10,6 +10,7 @@
         <th>Update</th>
         <th>Delete</th>
     </tr>
+    <!--Gets data from index.js loops through it and displays it-->
     <% countries.forEach((country)=> { %>
         <tr>
             <td><%= country.co_code %></td>
@@ -19,6 +20,7 @@
             <form action="./updateCountries">
                 <input type='submit' value='Update'/></td>
             </form>
+            <!--links too delete method in index.js-->
             <td>
                 <a href="/countries/<%= country.co_code %>"> <button type="button">Delete</button></a>
             </td>

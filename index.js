@@ -1,13 +1,12 @@
-//instiates express
+//imports
 var express = require('express')
 
-//imports
+
 var app = express()
 var sqlDAO = require("./sqlDAO")
+var mongoDAO = require("./mongoDAO")
 var bodyParser = require('body-parser');
 const path =  require('path');
-
-//Sets up view
 app.set('view engine', 'ejs')
 
 //configuartion,1st sends build file from server too browser,2nd one sends static file from server too browser
@@ -22,7 +21,7 @@ app.use(bodyParser.json())
 
 
 
-//sends get requests on / ,recieves  links too routing points
+//displays links for 3 parts of application
 app.get('/',(req,res)=>{
     res.send('<a href="http://localhost:3007/listCountries">List Countries</a><p><a href="http://localhost:3007/listCities">List Cities</a></p><p><a href="http://localhost:3007/listHeadsOfState">List HeadsOfState</a></p>');  
 })
@@ -80,20 +79,33 @@ app.get("/listCities",(req,res)=>{
     })
 })
 
-app.get("/allDetails/:cty_code",(req,res)=>{
+// calls sql function for selecting indiviual city,and then renders the view too display it formatted
+app.get("/listCities/:cty_code",(req,res)=>{
     sqlDAO.getDetails(req.params.cty_code)
         .then((result) => {
-            //display individual city
             res.render('allDetails', {listCities:result})
         })
 })
 
+//gets headOfStateDB data
 app.get("/listHeadsOfState",(req,res)=>{
-    res.send('')
+    mongoDAO.getHeadsOfState()
+    .then((documents)=>{
+        res.render('headsOfs', {headofstate:documents})
+    })
+    .catch((error) => {
+        res.send(error)
+    })
+})
+
+///renders add head of state view
+app.get("/addHeadOfState",(req,res)=>{
+    res.render("addHeadOfs")
 })
 
 
-//r
+
+//shows all countries
 app.post((req,res)=>{
     sqlDAO.getCountries()
           .then((result)=>{
@@ -125,6 +137,17 @@ app.post("/updateCountries",(req,res) =>{
         res.render("addCountries",{addCountries:data})
         console.log(req.body.co_name)
 
+    })
+    .catch((error)=>{
+        res.send(error)
+    })
+})
+
+//sends queary of result too browser
+app.post('/addHeadOfState', (req, res)=>{
+    mongoDAO.addHeadOfState(req.body._id, req.body.headofstate)
+    .then((result)=>{
+        res.redirect('/listHeadsOfState')
     })
     .catch((error)=>{
         res.send(error)

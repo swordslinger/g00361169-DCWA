@@ -18,6 +18,7 @@ mysql.createPool({
   .catch((error) => {
     console.log(error)
   })
+
 //gets  countrys table in sql database
 var getCountries = function () {
   //Return new promise
@@ -106,6 +107,7 @@ var getCities = function () {
   //Return new promise
   return new Promise((resolve, reject) => {
     //function promise/queary database
+    //queary for getting all cities
     pool.query("select * from city;")
       .then((result) => {
         resolve(result)
@@ -118,12 +120,12 @@ var getCities = function () {
 }
 
 
-//gets details of cities in sql database
-var getDetails = function () {
+//gets details of a single citie in sql database
+var getDetails = function (cty_code) {
   //Return new promise
   return new Promise((resolve, reject) => {
     //function promise/queary database
-        //query then sends a result
+        //query that gets single citys details
         var myQuery ={
           sql: 'select * from city where cty_code = ?',
           values: [cty_code]
@@ -140,5 +142,5 @@ var getDetails = function () {
 }
 
 
-
+//exports functions too be used in index.js
 module.exports = { getCountries, addCountry, updateCountry, deleteCountry,getCities,getDetails }

@@ -9,6 +9,7 @@
         <th>Area</th>
         <th>All details</th>
     </tr>
+    
     <% listCities.forEach((city)=> { %>
         <tr>
             <td><%= city.cty_code %></td>
@@ -17,6 +18,7 @@
             <td><%= city.population %></td>
             <td><%= city.isCoastal %></td>
             <td><%= city.areaKM %></td>
+            <!-- links too method in indexjs that shows specfic details for city-->
             <td>
                 <a href="/listCities/<%= city.cty_code %>"> <button type="button">Details</button></a>
             <td>

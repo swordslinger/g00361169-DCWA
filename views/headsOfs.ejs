@@ -1,0 +1,18 @@
+<h1>Heads of State</h1>
+<!-- links too /addheadOfState in index.js-->
+<form action="./addHeadOfState">
+    <input type="submit" value="Add Head of state" />
+</form>
+<table>
+    <tr>
+        <th>_id</th>
+        <th>headOfState</th>
+    </tr>
+    <% headofstate.forEach((headofstate)=> { %>
+        <tr>
+            <td><%= headofstate._id %></td>
+            <td><%= headofstate.headOfState %></td>
+        </tr>
+    <% }) %>
+</table>
+<a href="./">Home</a> 

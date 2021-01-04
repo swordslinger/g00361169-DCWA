@@ -1,14 +1,22 @@
-<h1>Edit Country</h1>
-    <br>
-    <br>
-    <form action="/updateCountries" method="POST">
+<h1>All details of city </h1>
+
   
-        <label for="cCode">Country Code:</label>
-        <input type="text" id="cCode" name="co_code"><br><br>
-        <label for="cName">Country Name:</label>
-        <input type="text" id="cName" name="co_name"><br><br>
-        <label for="CDetails">Country Details:</label>
-        <textarea type="text" id="CDetails" name="co_details"></textarea>
-        <input type="submit" value="Add">
-      </form>
-      <a href="./">Home</a> 
+<!-- access data from index.js and use a for each loop too display data-->
+  <% listCities.forEach((city)=> { %>
+          <label for="cCode">City Code:</label>
+            <input type="text" id="cCode" name="cty_code" value="<%= city.cty_code %>"><br><br>
+            <label for="cCode">City Name:</label> 
+            <input type="text" id="cName" name="cty_name" value="<%= city.cty_name %>"><br><br>
+            <label for="cCode">City Population:</label> 
+            <input type="text" id="cPopulation" name="cty_code" value="<%= city.population %>"><br><br>
+            <label for="cCode">is the city is coastel:</label> 
+            <input type="text" id="bytheSea" name="cty_isCoastel" value="<%= city.isCoastal %>"><br><br>
+            <label> city area covered</label>
+            <input type="text" id="AreaKM" name="cty_areaKM" value="<%= city.areaKM %>"><br><br>
+            <label> Country Code</label>
+            <input type="text" id="AreaKM" name="cty_areaKM" value="<%= city.co_code %>"><br><br>
+            <label> Country Code</label>
+            <input type="text" id="AreaKM" name="cty_areaKM" value="<%= city.co_code %>"><br><br>
+  <% }) %>
+
+<a href="./">Home</a> 
